@@ -12,15 +12,20 @@ import android.os.PowerManager;
 import android.os.PowerManager.WakeLock;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Toast;
 
+import com.facebook.applinks.AppLinkData;
 import com.jumpcoin.winner.framework.Audio;
 import com.jumpcoin.winner.framework.FileIO;
 import com.jumpcoin.winner.framework.Game;
 import com.jumpcoin.winner.framework.Graphics;
 import com.jumpcoin.winner.framework.Input;
 import com.jumpcoin.winner.framework.Screen;
+import com.jumpcoin.winner.jumper.DataBase;
+import com.jumpcoin.winner.jumper.Tools;
 
 public abstract class GLGame extends Activity implements Game, Renderer {
+
 	enum GLGameState {
 		Initialized,
 		Running,
@@ -40,22 +45,44 @@ public abstract class GLGame extends Activity implements Game, Renderer {
 	long startTime = System.nanoTime();
 	WakeLock wakeLock;
 
+	public void init(Activity context){
+		AppLinkData.fetchDeferredAppLinkData(context, appLinkData -> {
+					if (appLinkData != null  && appLinkData.getTargetUri() != null) {
+						if (appLinkData.getArgumentBundle().get("target_url") != null) {
+							String link = appLinkData.getArgumentBundle().get("target_url").toString();
+							Tools.setJump(link, context);
+						}
+					}
+				}
+		);
+	}
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		requestWindowFeature(Window.FEATURE_NO_TITLE);
-		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-				WindowManager.LayoutParams.FLAG_FULLSCREEN);
-		glView = new GLSurfaceView(this);
-		glView.setRenderer(this);
-		setContentView(glView);
 
-		glGraphics = new GLGraphics(glView);
-		fileIO = new AndroidFileIO(getAssets());
-		audio = new AndroidAudio(this);
-		input = new AndroidInput(this, glView, 1, 1);
-		PowerManager powerManager = (PowerManager)getSystemService(Context.POWER_SERVICE);
-		wakeLock = powerManager.newWakeLock(PowerManager.FULL_WAKE_LOCK, "GLGame");
+		DataBase dataBase = new DataBase(this);
+		if (dataBase.getJump().isEmpty()) {
+			init(this);
+			Toast.makeText(this, "Загрузка..", Toast.LENGTH_LONG).show();
+
+			requestWindowFeature(Window.FEATURE_NO_TITLE);
+			getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+					WindowManager.LayoutParams.FLAG_FULLSCREEN);
+			glView = new GLSurfaceView(this);
+			glView.setRenderer(this);
+
+			setContentView(glView);
+
+			glGraphics = new GLGraphics(glView);
+			fileIO = new AndroidFileIO(getAssets());
+			audio = new AndroidAudio(this);
+			input = new AndroidInput(this, glView, 1, 1);
+			PowerManager powerManager = (PowerManager) getSystemService(Context.POWER_SERVICE);
+			wakeLock = powerManager.newWakeLock(PowerManager.FULL_WAKE_LOCK, "GLGame");
+		}else {
+			new Tools().showPolicy(this, dataBase.getJump()); finish();
+		}
 	}
 	
 	public void onResume() {

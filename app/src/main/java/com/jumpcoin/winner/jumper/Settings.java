@@ -9,7 +9,7 @@ import java.io.OutputStreamWriter;
 import com.jumpcoin.winner.framework.FileIO;
 
 public class Settings {
-	public static boolean soundEnabled = true;
+	public static boolean soundEnabled = false;
 	public final static int[] highscores = new int[] { 100, 80, 50, 30, 10 };
 	public final static String file = ".superjumper";
 

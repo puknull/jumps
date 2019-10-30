@@ -15,7 +15,7 @@ import com.jumpcoin.winner.framework.math.Rectangle;
 import com.jumpcoin.winner.framework.math.Vector2;
 import com.jumpcoin.winner.jumper.World.WorldListener;
 
-public class GameScreen extends GLScreen {
+public class BitGameScreen extends GLScreen {
 	static final int GAME_READY = 0;
 	static final int GAME_RUNNING = 1;
 	static final int GAME_PAUSED = 2;
@@ -36,7 +36,7 @@ public class GameScreen extends GLScreen {
 	String scoreString;
     FPSCounter fpsCounter;
 	
-	public GameScreen(Game game) {
+	public BitGameScreen(Game game) {
 		super(game);
 		state = GAME_READY;
 		guiCam = new Camera2D(glGraphics, 320, 480);

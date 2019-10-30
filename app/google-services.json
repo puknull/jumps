@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "567381911219",
+    "firebase_url": "https://prof-85a5b.firebaseio.com",
+    "project_id": "prof-85a5b",
+    "storage_bucket": "prof-85a5b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:567381911219:android:6f80d32a78f76f251672c6",
+        "android_client_info": {
+          "package_name": "com.jumpkoin.winner"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "567381911219-6eg9inksqf67ecrl11t87uja75i9d5ff.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCu_ANFnJCRF2QjksBWYZOpukS3xvQbEN8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "567381911219-6eg9inksqf67ecrl11t87uja75i9d5ff.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

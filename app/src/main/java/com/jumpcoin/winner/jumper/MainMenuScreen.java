@@ -46,7 +46,7 @@ public class MainMenuScreen extends GLScreen {
 
 				if(OverlapTester.pointInRectangle(playBounds, touchPoint)) {
 					Assets.playSound(Assets.clickSound);
-					game.setScreen(new GameScreen(game));
+					game.setScreen(new BitGameScreen(game));
 					return;
 				}
 				if(OverlapTester.pointInRectangle(highscoresBounds, touchPoint)) {

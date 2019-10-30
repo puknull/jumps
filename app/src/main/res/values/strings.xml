@@ -1,5 +1,6 @@
 <resources>
-    <string name="app_name">JumpCoin</string>
+    <string name="app_name">BitPro</string>
     <string name="hello">Hello World, SuperJumper!</string>
-
+    <string name="facebook_app_id">541764279979123</string>
+    <string name="fb_login_protocol_scheme">fb541764279979123</string>
 </resources>
